@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins&family=Prata&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins&family=Prata&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@100..900&family=Poppins&family=Prata&display=swap');
+
+@import "tailwindcss";
+
+*{
+  font-family: Outfit;
+}
+.prata-regular {
+  font-family: "Prata",serif;
+  font-weight: 400;
+  font-style: normal;
+}
+a.active hr{
+  display: block;
+  color: black; 
+}
+
+
+a.active {
+  font-weight: 700;
+  color: black;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+@media(max-width:640px){
+    a.active{
+      background-color: black;
+      color: white;
+    }
+}
