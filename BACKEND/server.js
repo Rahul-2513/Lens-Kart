@@ -46,7 +46,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-// 5️⃣ Start server
 app.listen(port, () => {
   console.log(`Server is running on PORT ${port}`);
 });
+     
