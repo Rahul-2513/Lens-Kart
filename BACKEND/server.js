@@ -27,7 +27,10 @@ app.use(helmet());
 
 app.use(
   cors({
-    origin: "https://lens-star-frontend.vercel.app",
+    origin: [
+      "https://lens-star-frontend.vercel.app",
+      "https://lens-star-admin.vercel.app",
+    ],
     credentials: true,
   })
 );
