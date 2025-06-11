@@ -15,7 +15,7 @@ import Footer from "./components/Footer";
 
 import TermsOfService from "./components/TermsOfService";
 import PrivacyPolicy from "./components/PrivacyPolicy";
-import FAQ from "./components/FAQ.JSX";
+import FAQ from "./components/FAQ";
 import { ToastContainer } from "react-toastify";
 import MyProfile from "./components/MyProfile";
 
