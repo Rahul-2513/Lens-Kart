@@ -13,7 +13,7 @@ import Verify from './pages/Verify'
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-import TermsOfService from "./components/TermsofService";
+import TermsOfService from "./components/TermsOfService";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import FAQ from "./components/FAQ.JSX";
 import { ToastContainer } from "react-toastify";
