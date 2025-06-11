@@ -25,6 +25,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(helmet());
 
+app.use(
+  cors({
+    origin: "https://lens-star-frontend.vercel.app",
+    credentials: true,
+  })
+);
+
+
 // 🔥 REMOVE this—no local “uploads” folder on Vercel!
 // app.use("/uploads", express.static("uploads"));
 
