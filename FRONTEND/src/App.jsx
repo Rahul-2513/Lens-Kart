@@ -12,7 +12,7 @@ import Login from "./pages/Login";
 import Verify from './pages/Verify'
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Searchbar from "./components/Searchbar";
+
 import TermsOfService from "./components/TermsofService";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import FAQ from "./components/FAQ.JSX";
@@ -26,7 +26,7 @@ const App = () => {
   return (
     <div className="px-2 sm:px-6">
       <Navbar />
-      <Searchbar />
+     
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/collection" element={<Collection />} />
