@@ -7,86 +7,54 @@ export const addProduct = async (req, res) => {
     console.log("Request Body:", req.body);
     console.log("Uploaded Files:", req.files);
 
-    let {
-      name,
-      description,
-      category,
-      subCategory,
-    
-      price,
-      bestSeller,
-      sizes,
-    } = req.body;
+    let { name, description, category, subCategory, price, bestSeller, sizes } =
+      req.body;
 
     if (!req.files || Object.keys(req.files).length === 0) {
-      console.error("No files uploaded");
       return res
         .status(400)
-        .json({ success: false, message: "No files were uploaded" });
+        .json({ success: false, message: "No files uploaded" });
     }
 
-    const images = ["img1", "img2", "img3", "img4"]
-      .map((key) => req.files[key]?.[0]?.path)
-      .filter((path) => path !== undefined);
+    const imageKeys = ["img1", "img2", "img3", "img4"];
+    const imageBuffers = imageKeys
+      .map((key) => req.files[key]?.[0])
+      .filter((file) => file !== undefined);
 
-    console.log("Images to Upload:", images);
-
-    if (images.length === 0) {
-      console.error("No valid images found");
+    if (imageBuffers.length === 0) {
       return res
         .status(400)
         .json({ success: false, message: "At least one image is required" });
     }
 
-    let imageUrl;
-    try {
-      imageUrl = await Promise.all(
-        images.map(async (path) => {
-          let result = await cloudinary.uploader.upload(path, {
-            resource_type: "image",
-          });
-          console.log("Uploaded Image URL:", result.secure_url);
-          return result.secure_url;
-        })
-      );
-    } catch (error) {
-      console.error("Cloudinary Upload Error:", error);
-      return res
-        .status(500)
-        .json({ success: false, message: "Cloudinary upload failed" });
-    }
+    const imageUrls = await Promise.all(
+      imageBuffers.map(async (file) => {
+        const uploadResult = await cloudinary.uploader.upload(
+          `data:${file.mimetype};base64,${file.buffer.toString("base64")}`,
+          { resource_type: "image", folder: "products" }
+        );
+        return uploadResult.secure_url;
+      })
+    );
 
     sizes = JSON.parse(sizes || "[]");
     bestSeller = bestSeller === "true";
-
-    console.log("Parsed Data:", {
-      name,
-      description,
-      category,
-      subCategory,
-  
-      price,
-      bestSeller,
-      sizes,
-    });
 
     const productData = {
       name,
       description,
       price: parseFloat(price) || 0,
-      image: imageUrl,
+      image: imageUrls,
       category,
       subCategory,
       sizes,
       bestSeller,
-    
       date: Date.now(),
     };
 
     const product = new productModels(productData);
     await product.save();
 
-    console.log("Product saved successfully");
     res.json({ success: true, message: "Product added successfully!" });
   } catch (error) {
     console.error("Error in addProduct:", error);
